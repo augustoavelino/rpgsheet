@@ -11,8 +11,10 @@ import SwiftData
 @Model
 final class Item {
     var timestamp: Date
+    var orderIndex: Int
     
-    init(timestamp: Date) {
+    init(timestamp: Date, orderIndex: Int) {
         self.timestamp = timestamp
+        self.orderIndex = orderIndex
     }
 }
