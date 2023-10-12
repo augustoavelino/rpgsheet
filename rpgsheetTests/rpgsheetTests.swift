@@ -32,5 +32,17 @@ final class rpgsheetTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testCharacterLevel() throws {
+        let lvl1HumanBard = RPGCharacter(name: "Level 1", race: .human, rpgClass: .bard, experience: 250)
+        let lvl2ElfRanger = RPGCharacter(name: "Level 2", race: .elf, rpgClass: .ranger, experience: 300)
+        let lvl5DwarfBarbarian = RPGCharacter(name: "Level 5", race: .dwarf, rpgClass: .barbarian, experience: 6600)
+        let lvl10DragonbornWarlock = RPGCharacter(name: "Level 10", race: .dragonborn, rpgClass: .warlock, experience: 64000)
+        
+        XCTAssert(lvl1HumanBard.getLevel() == 1)
+        XCTAssert(lvl2ElfRanger.getLevel() == 2)
+        XCTAssert(lvl5DwarfBarbarian.getLevel() == 5)
+        XCTAssert(lvl10DragonbornWarlock.getLevel() == 10)
+    }
 
 }
