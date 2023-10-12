@@ -12,7 +12,7 @@ import SwiftData
 struct rpgsheetApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            RPGCharacter.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct rpgsheetApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CharacterListView()
         }
         .modelContainer(sharedModelContainer)
     }
