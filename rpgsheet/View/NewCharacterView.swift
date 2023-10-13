@@ -9,18 +9,22 @@ import SwiftUI
 import SwiftData
 
 struct NewCharacterView: View {
+    // MARK: Enviroment
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    
+    // MARK: Data
     @State private var characterName: String = ""
     @State private var characterEXP: String = "0"
-    private var experience: Int { Int(characterEXP) ?? 0 }
     @State private var selectedRace: RPGRace = .human
     @State private var selectedClass: RPGClass = .barbarian
     
+    // MARK: Control
+    @FocusState private var isNameFocused: Bool
     @FocusState private var isExpFocused: Bool
+    @State private var shouldShowNameError: Bool = false
     
-    @Environment(\.dismiss) private var dismiss
-    
-    private let availableClasses = RPGClass.allCases
-    
+    // MARK: - View
     var body: some View {
         let expBinding = Binding<String> {
             self.characterEXP
@@ -34,50 +38,40 @@ struct NewCharacterView: View {
         }
         
         VStack {
-            HStack(alignment: .center) {
-                Text("Name")
-                    .padding(.trailing, 8.0)
-                
-                TextField("New Character", text: $characterName)
+            // MARK: Name input
+            VStack(alignment: .leading) {
+                TextField("Character Name", text: $characterName, onEditingChanged: updateNameErrorVisibility)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .focused($isNameFocused)
+                
+                if shouldShowNameError {
+                    Text("Name should not be empty")
+                        .foregroundStyle(Color.red)
+                        .font(.caption)
+                        .padding([.bottom, .leading], 8.0)
+                }
             }
             
+            // MARK: Experience input
             HStack(alignment: .center, spacing: 0.0) {
                 Text("Experience")
                     .padding(.trailing, 8.0)
                 
-                TextField("0", text: expBinding)
+                TextField("Experience", text: expBinding)
                     .keyboardType(.numberPad)
-                    .focused($isExpFocused)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                if isExpFocused {
-                    Button("Set") {
-                        isExpFocused = false
-                    }
-                    .padding(.leading, 8.0)
-                }
+                    .focused($isExpFocused)
             }
             
-            HStack(alignment: .lastTextBaseline) {
-                Text("Race")
-                    .font(.headline)
-                
-                Spacer()
-                
+            // MARK: Race and class inputs
+            HStack(alignment: .center) {
                 Picker("Race", selection: $selectedRace) {
                     ForEach(RPGRace.allCases, id: \.self) { race in
                         Text(race.text).tag(race)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-            }
-            
-            HStack(alignment: .lastTextBaseline) {
-                Text("Class")
-                    .font(.headline)
-                
-                Spacer()
+                .frame(maxWidth: .infinity)
                 
                 Picker("Class", selection: $selectedClass) {
                     ForEach(RPGClass.allCases, id: \.self) { rpgClass in
@@ -85,19 +79,48 @@ struct NewCharacterView: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                .frame(maxWidth: .infinity)
             }
             
             Spacer()
             
+            // MARK: Confirmation button
             Button {
-                // TODO: Create character here
+                guard !characterName.isEmpty else {
+                    shouldShowNameError = true
+                    return
+                }
+                shouldShowNameError = false
+                
+                modelContext.insert(RPGCharacter(name: characterName, race: selectedRace, rpgClass: selectedClass, experience: Int(characterEXP) ?? 0))
                 
                 dismiss()
             } label: {
-                Text("Finish")
+                Text("Create")
             }
-
         }
         .padding()
+        .navigationTitle("New Character")
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                HStack {
+                    Spacer()
+                    Button("Done") {
+                        isNameFocused = false
+                        isExpFocused = false
+                    }
+                }
+            }
+        }
     }
+    
+    // MARK: Events
+    
+    private func updateNameErrorVisibility(_ isFocused: Bool) {
+        shouldShowNameError = !isFocused && characterName.isEmpty
+    }
+}
+
+#Preview {
+    NewCharacterView()
 }
