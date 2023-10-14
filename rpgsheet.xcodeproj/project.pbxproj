@@ -13,6 +13,9 @@
 		65070D9E2AD5A63B00AB181E /* rpgsheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65070D9D2AD5A63B00AB181E /* rpgsheetTests.swift */; };
 		65070DA82AD5A63B00AB181E /* rpgsheetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65070DA72AD5A63B00AB181E /* rpgsheetUITests.swift */; };
 		65070DAA2AD5A63B00AB181E /* rpgsheetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65070DA92AD5A63B00AB181E /* rpgsheetUITestsLaunchTests.swift */; };
+		6562157D2ADA058100E4F38B /* AttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6562157C2ADA058100E4F38B /* AttributeView.swift */; };
+		6562157F2ADA254100E4F38B /* RPGAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6562157E2ADA254100E4F38B /* RPGAttribute.swift */; };
+		656215822ADA255D00E4F38B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656215812ADA255D00E4F38B /* String+Extensions.swift */; };
 		65A4E0912AD750B300969C3A /* RPGClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4E0902AD750B300969C3A /* RPGClass.swift */; };
 		65A4E0932AD7520600969C3A /* RPGRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4E0922AD7520600969C3A /* RPGRace.swift */; };
 		65E8704D2AD6F7E200C829C0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E8704C2AD6F7E200C829C0 /* CharacterListView.swift */; };
@@ -49,6 +52,9 @@
 		65070DA32AD5A63B00AB181E /* rpgsheetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rpgsheetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65070DA72AD5A63B00AB181E /* rpgsheetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rpgsheetUITests.swift; sourceTree = "<group>"; };
 		65070DA92AD5A63B00AB181E /* rpgsheetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rpgsheetUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6562157C2ADA058100E4F38B /* AttributeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeView.swift; sourceTree = "<group>"; };
+		6562157E2ADA254100E4F38B /* RPGAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPGAttribute.swift; sourceTree = "<group>"; };
+		656215812ADA255D00E4F38B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		65A4E0902AD750B300969C3A /* RPGClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPGClass.swift; sourceTree = "<group>"; };
 		65A4E0922AD7520600969C3A /* RPGRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPGRace.swift; sourceTree = "<group>"; };
 		65E8704C2AD6F7E200C829C0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
@@ -108,9 +114,10 @@
 				65070D942AD5A63B00AB181E /* Info.plist */,
 				65070D882AD5A63A00AB181E /* rpgsheetApp.swift */,
 				65070D8E2AD5A63B00AB181E /* Assets.xcassets */,
+				656215802ADA254C00E4F38B /* Extensions */,
 				65E8704A2AD6F7C500C829C0 /* Model */,
-				65E8704B2AD6F7CA00C829C0 /* View */,
 				65070D902AD5A63B00AB181E /* Preview Content */,
+				65E8704B2AD6F7CA00C829C0 /* View */,
 			);
 			path = rpgsheet;
 			sourceTree = "<group>";
@@ -140,9 +147,26 @@
 			path = rpgsheetUITests;
 			sourceTree = "<group>";
 		};
+		6562157B2ADA055900E4F38B /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				6562157C2ADA058100E4F38B /* AttributeView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		656215802ADA254C00E4F38B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				656215812ADA255D00E4F38B /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		65E8704A2AD6F7C500C829C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6562157E2ADA254100E4F38B /* RPGAttribute.swift */,
 				65E8704E2AD6F7EE00C829C0 /* RPGCharacter.swift */,
 				65A4E0902AD750B300969C3A /* RPGClass.swift */,
 				65A4E0922AD7520600969C3A /* RPGRace.swift */,
@@ -155,6 +179,7 @@
 			children = (
 				65E8704C2AD6F7E200C829C0 /* CharacterListView.swift */,
 				65E870502AD6FE2300C829C0 /* NewCharacterView.swift */,
+				6562157B2ADA055900E4F38B /* Custom */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -291,8 +316,11 @@
 			files = (
 				65070D892AD5A63A00AB181E /* rpgsheetApp.swift in Sources */,
 				65A4E0912AD750B300969C3A /* RPGClass.swift in Sources */,
+				6562157F2ADA254100E4F38B /* RPGAttribute.swift in Sources */,
 				65A4E0932AD7520600969C3A /* RPGRace.swift in Sources */,
+				656215822ADA255D00E4F38B /* String+Extensions.swift in Sources */,
 				65E870512AD6FE2300C829C0 /* NewCharacterView.swift in Sources */,
+				6562157D2ADA058100E4F38B /* AttributeView.swift in Sources */,
 				65E8704D2AD6F7E200C829C0 /* CharacterListView.swift in Sources */,
 				65E8704F2AD6F7EE00C829C0 /* RPGCharacter.swift in Sources */,
 			);

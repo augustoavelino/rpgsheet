@@ -44,5 +44,38 @@ final class rpgsheetTests: XCTestCase {
         XCTAssert(lvl5DwarfBarbarian.getLevel() == 5)
         XCTAssert(lvl10DragonbornWarlock.getLevel() == 10)
     }
+    
+    func testCharacterAttributeValues() throws {
+        let character = RPGCharacter(name: "George, son of Galahad", race: .human, rpgClass: .paladin, experience: 64974)
+        character.attributes = [.strength: 14, .dexterity: 9, .constitution: 16, .intelligence: 15, .wisdom: 10, .charisma: 18]
+        
+        XCTAssert(character.getAttributeValue(.strength) == 14)
+        XCTAssert(character.getAttributeModifier(.strength) == 2)
+        
+        XCTAssert(character.getAttributeValue(.dexterity) == 9)
+        XCTAssert(character.getAttributeModifier(.dexterity) == -1)
+        
+        XCTAssert(character.getAttributeValue(.constitution) == 16)
+        XCTAssert(character.getAttributeModifier(.constitution) == 3)
+        
+        XCTAssert(character.getAttributeValue(.intelligence) == 15)
+        XCTAssert(character.getAttributeModifier(.intelligence) == 2)
+        
+        XCTAssert(character.getAttributeValue(.wisdom) == 10)
+        XCTAssert(character.getAttributeModifier(.wisdom) == 0)
+        
+        XCTAssert(character.getAttributeValue(.charisma) == 18)
+        XCTAssert(character.getAttributeModifier(.charisma) == 4)
+    }
+    
+    func testAbbreviation() throws {
+        XCTAssert("strength".abbreviated(3) == "str")
+        XCTAssert("constitution".abbreviated(3) == "con")
+        XCTAssert("wisdom".abbreviated(3) == "wis")
+        
+        XCTAssertFalse("dexterity".abbreviated(3) != "dex")
+        XCTAssertFalse("intelligence".abbreviated(3) != "int")
+        XCTAssertFalse("charisma".abbreviated(3) != "cha")
+    }
 
 }

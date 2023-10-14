@@ -13,7 +13,7 @@ struct CharacterListView: View {
     @Query(sort: \RPGCharacter.name) private var characters: [RPGCharacter]
     
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(characters) { character in
                     NavigationLink {
@@ -32,8 +32,6 @@ struct CharacterListView: View {
                 }
             }
             .navigationTitle("Character Sheets")
-        } detail: {
-            Text("Select a character")
         }
     }
 

@@ -10,12 +10,13 @@ import SwiftData
 
 @Model
 final class RPGCharacter {
-    private static let experienceLevels = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000]
+    private static let experienceProgression = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000]
     
     var name: String
     var race: RPGRace
     var rpgClass: RPGClass
     var experience: Int
+    var attributes: [RPGAttribute: Int] = [:]
     var dateCreated: Date
     var dateUpdated: Date
     
@@ -28,8 +29,17 @@ final class RPGCharacter {
         self.dateUpdated = dateUpdated
     }
     
+    func getAttributeValue(_ attribute: RPGAttribute) -> Int {
+        return attributes[attribute] ?? 0
+    }
+    
+    func getAttributeModifier(_ attribute: RPGAttribute) -> Int {
+        let attributeValue = getAttributeValue(attribute)
+        return RPGAttribute.modifier(for: attributeValue)
+    }
+    
     func getLevel() -> Int {
-        guard let levelIndex = RPGCharacter.experienceLevels.lastIndex(where: { $0 <= experience }) else { return 1 }
+        guard let levelIndex = RPGCharacter.experienceProgression.lastIndex(where: { $0 <= experience }) else { return 1 }
         return levelIndex + 1
     }
 }
